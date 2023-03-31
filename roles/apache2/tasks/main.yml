@@ -34,8 +34,8 @@
 - name: apache2 virtualhost on port {{ http_port }}
   ansible.builtin.lineinfile: 
     dest: /etc/apache2/sites-available/000-default.conf
-    regexp: "^<VirtualHost *:80" 
-    line: "<VirtualHost *:{{ http_port }}>"
+    regexp: '^<VirtualHost \*:80'
+    line: '<VirtualHost *:{{ http_port }}>'
   notify:
     - restart apache2
 - name: apache2 copy php file on DocumentsRoot
@@ -60,7 +60,7 @@
 - name: start apache2 on boot
   ansible.builtin.service:
     name: apache2
-    state: started
+    state: restarted
     enabled: yes
 
   notify:

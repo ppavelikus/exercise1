@@ -1,10 +1,7 @@
 ---
 - name: install some soft
-  hosts: "{{ hn }}"
+  hosts: all
   become: true
-  roles:
-    - apache2
-    - nginx
   tasks:
   - name: On Debian  
     block:
@@ -39,4 +36,7 @@
           state: latest
           update_cache: true
     when: ansible_os_family == "Debian"
+  roles:
+    - apache2
+    - nginx
   
