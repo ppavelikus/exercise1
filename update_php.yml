@@ -1,0 +1,46 @@
+---
+- name: install some soft
+  hosts: "{{ hn }}"
+  become: true
+  tasks:
+  - name: On Debian
+    block:
+      - name: check apache module php5.6
+        ansible.builtin.stat:
+          path: /etc/apache2/mods-available/php5.6.conf
+        register: modphp
+      - name: disable apache module php5.6
+        community.general.apache2_module:
+          name: php5.6
+          state: absent
+        notify:
+          - restart apache
+        when: modphp.stat.exists
+      - name: remove apache module php5.6
+        ansible.builtin.apt:
+          name:
+            - php5.6*
+            - libapache2-mod-php5.6
+          state: absent
+          update_cache: true
+          
+        notify:
+          - restart apache
+
+      - name: Install PHP 7.2 and apache mod 7.2
+        ansible.builtin.apt:
+          name:
+            - php7.2
+            - libapache2-mod-php7.2
+          state: latest
+          update_cache: true
+        notify:
+          - restart apache
+    when: ansible_os_family == "Debian"
+  
+  handlers:
+    - name: restart apache
+      ansible.builtin.service:
+        name: apache2
+        state: restarted
+      

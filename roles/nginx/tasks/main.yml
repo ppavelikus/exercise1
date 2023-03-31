@@ -1,0 +1,26 @@
+---
+# tasks file for nginx
+- name: install nginx
+  ansible.builtin.apt:
+    name: nginx
+    update_cache: true
+    state: latest
+
+- name: nginx default change
+  ansible.builtin.replace:
+    path: /etc/nginx/sites-available/default
+    regexp: '(^\s+)(index index.html.*$)'
+    replace: '\1index index.nginx-debian.html; #\2'
+  notify:
+    - restart nginx
+  tags:
+    - nginx_regexp
+
+- name: start nginx on boot
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
+
+  notify:
+    - restart nginx
