@@ -61,7 +61,7 @@ Vagrant.configure("2") do |config|
      vb.cpus = 1
      vb.memory = "2048"
      vb.check_guest_additions = false
-     vb.name = "vagrant_bionic64"
+     vb.name = "vagrant_bionic64_gordeev"
      #vb.customize ["modifyhd", :id, "--resize", "10240"]
      #config.vm.disk :disk, size: "10GB", primary: true
    end
