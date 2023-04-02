@@ -12,8 +12,9 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  #config.vm.box = "hashicorp/bionic64"
-  config.vm.box = "bionic64"
+  config.vm.box = "hashicorp/bionic64"
+  # local copy box
+  #config.vm.box = "bionic64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
