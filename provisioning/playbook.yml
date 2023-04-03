@@ -38,9 +38,13 @@
       - name: Print message
         ansible.builtin.debug:
           msg: 
-            - Try to open site: http://127.0.0.1:80 - nginx welcome page
-            - Try to open site: http://127.0.0.1:8888 - apache Hello world
-            - Run the file /vagrant/run_update_php.sh into VM (vagrant:vagrant) to update php5.6 to php7.2
+            - "Try to open site: http://127.0.0.1:80 - nginx welcome page"
+            - "Try to open site: http://127.0.0.1:8888 - apache Hello world"
+            - "Run the file run_update_php.sh into VM to update php5.6 to php7.2:"
+            - "#vagrant ssh"
+            - "#cd /vagrant"
+            - "#./run_update_php.sh"
+        tags: message
 
     when: ansible_os_family == "Debian"
   roles:
